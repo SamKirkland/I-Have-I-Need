@@ -15,14 +15,14 @@ namespace Main.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "I Have/I Need";
+            ViewBag.Message = "Have/Need";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "I Have/ I Need";
+            ViewBag.Message = "Have/Need";
 
             return View();
         }
