@@ -4,6 +4,41 @@
     ViewBag.Title = "Details";
 }
 
+
+
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+<script src="~/Scripts/locationpicker.jquery.js"></script>
+<script src="~/Scripts/timeago.jquery.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("abbr.timeago").timeago();
+
+        $('#map').locationpicker({
+            @if (Model.Longitude.HasValue && Model.Latitude.HasValue) {
+                <text>
+                    location: {
+                        longitude: @Model.Longitude,
+                        latitude: @Model.Latitude
+                    },
+                </text>
+            }
+            radius: 2500,
+            zoom: 11,
+            inputBinding: {
+                latitudeInput: $('#Latitude'),
+                longitudeInput: $('#Longitude'),
+                locationNameInput: $('#locationSearch')
+            },
+            draggable: false,
+            enableAutocomplete: false
+        });
+    });
+</script>
+
+
 <h2>Details</h2>
 
 <div>
@@ -15,7 +50,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PostDate)
+            <abbr class="timeago" title="@Html.DisplayFor(model => model.PostDate)">@Html.DisplayFor(model => model.PostDate)</abbr>
         </dd>
 
         <dt>
@@ -43,30 +78,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Removed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Removed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.AspNetUser.Email)
         </dt>
 
@@ -81,9 +92,17 @@
         <dd>
             @Html.DisplayFor(model => model.Category.CategoryName)
         </dd>
-
     </dl>
 </div>
+
+
+<div id="mapWrapper">
+    <input disabled="disabled" class="form-control" type="text" id="locationSearch" />
+    <div id="map"></div>
+</div>
+
+
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.PostID }) |
     @Html.ActionLink("Back to List", "Index")

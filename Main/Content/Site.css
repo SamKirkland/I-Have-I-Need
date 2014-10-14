@@ -22,3 +22,59 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+/* overwrites the bootstrap cursor for input elements that are disabled */
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+        cursor: default;
+    }
+
+
+/* ----------- Post page, Editing ----------- */
+#mapWrapper {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    border: 2px solid gray;
+}
+#mapWrapper #map {
+    width: 100%;
+    height: 100%;
+}
+#mapWrapper #locationSearch.form-control {
+    display: block;
+    width: 50%;
+    max-width: 9999px;
+    position: absolute;
+
+    top: 7px;
+    left: 30px;
+    z-index: 100;
+}
+
+/* ---------- Qwill Styles (WYSIWYG editor) ----------- */
+.basic-wrapper,
+.advanced-wrapper {
+  border: 1px solid #ccc;
+  float: left;
+  margin-left: 3%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.basic-wrapper {
+  width: 40%;
+}
+.advanced-wrapper {
+  width: 50%;
+}
+.editor-container {
+  height: 400px;
+}
+.toolbar-container {
+  border-bottom: 1px solid #ccc;
+}
+.basic-wrapper .toolbar-container .ql-active,
+.basic-wrapper .toolbar-container button:hover {
+  color: #008000;
+  font-weight: bold;
+}

@@ -18,9 +18,9 @@ namespace Main
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
-            this.Posts = new HashSet<Post>();
-            this.Comments = new HashSet<Comment>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.Comments = new HashSet<Comment>();
+            this.Posts = new HashSet<Post>();
         }
     
         public string Id { get; set; }
@@ -38,8 +38,8 @@ namespace Main
     
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual ICollection<Post> Posts { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

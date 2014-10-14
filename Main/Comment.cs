@@ -17,7 +17,7 @@ namespace Main
         public int CommentID { get; set; }
         public int PostID { get; set; }
         public string UserID { get; set; }
-        public byte[] CommentDate { get; set; }
+        public System.DateTime CommentDate { get; set; }
         public string CommentDescription { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }

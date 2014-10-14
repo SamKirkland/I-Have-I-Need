@@ -6,101 +6,195 @@
 
 <h2>Create</h2>
 
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+<script src="~/Scripts/locationpicker.jquery.js"></script>
+<script src="~/Scripts/timeago.jquery.js"></script>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Post</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PostID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostID, "", new { @class = "text-danger" })
-            </div>
+<script>
+    $(document).ready(function () {
+        $('#map').locationpicker({
+            radius: 2500,
+            zoom: 11,
+            inputBinding: {
+                latitudeInput: $('#Latitude'),
+                longitudeInput: $('#Longitude'),
+                locationNameInput: $('#locationSearch')
+            },
+            enableAutocomplete: true
+        });
+    });
+</script>
+
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/quill.snow.css">
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="content-container">
+    <div class="advanced-wrapper">
+        <div class="toolbar-container">
+            <span class="ql-format-group">
+                <select title="Size" class="ql-size">
+                    <option value="14px" selected>Normal</option>
+                    <option value="18px">Large</option>
+                    <option value="32px">Huge</option>
+                </select>
+            </span>
+            <span class="ql-format-group">
+                <span title="Bold" class="ql-format-button ql-bold"></span>
+                <span class="ql-format-separator"></span>
+                <span title="Italic" class="ql-format-button ql-italic"></span>
+                <span class="ql-format-separator"></span>
+                <span title="Underline" class="ql-format-button ql-underline"></span>
+            </span>
+            <span class="ql-format-group">
+                <span class="ql-format-separator"></span>
+                <span title="left" class="ql-format-button ql-left"></span>
+                <span title="center" class="ql-format-button ql-center"></span>
+                <span title="right" class="ql-format-button ql-right"></span>
+                <span title="justify" class="ql-format-button ql-justify"></span>
+                <span class="ql-format-separator"></span>
+                <select title="Text Alignment" class="ql-align">
+                    <option value="left" selected></option>
+                    <option value="center"></option>
+                    <option value="right"></option>
+                    <option value="justify"></option>
+                </select>
+            </span>
+            <span class="ql-format-group">
+                <span title="Link" class="ql-format-button ql-link"></span>
+                <span class="ql-format-separator"></span>
+                <span title="Image" class="ql-format-button ql-image"></span>
+                <span class="ql-format-separator"></span>
+                <span title="List" class="ql-format-button ql-list"></span>
+            </span>
         </div>
+        <div class="editor-container"></div>
+    </div>
+</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserID, "UserID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+
+
+
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <script type="text/javascript" src="~/Scripts/quill.min.js"></script>
+    <script type="text/javascript">
+        var advancedEditor;
+        advancedEditor = new Quill('.advanced-wrapper .editor-container', {
+            modules: {
+                'toolbar': {
+                    container: '.advanced-wrapper .toolbar-container'
+                },
+                'link-tooltip': true,
+                'image-tooltip': true
+            },
+            //formats: ['bold', 'italic', 'color'],
+            theme: 'snow'
+        });
+
+    </script>
+
+
+<div class="tooltip image-tooltip-container" style="position: absolute; left: 123px; top: 49.5px;">
+    <input class="input" type="textbox"><div class="preview"><span>Preview</span></div>
+    <a href="javascript:;" class="cancel">Cancel</a><a href="javascript:;" class="insert">Insert</a>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        function readImage(input) {
+            if (input.files && input.files[0]) {
+                var FR = new FileReader();
+                FR.onload = function (e) {
+                    $('#img').attr("src", e.target.result);
+                    $('#base').text(e.target.result);
+                };
+                FR.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#asd").change(function () {
+            readImage(this);
+        });
+    });
+</script>
+
+<input type='file' id="asd" />
+<img id="img" src="" />
+<div id="base"></div>
+
+
+
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Post</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ViewCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ViewCount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ViewCount, "", new { @class = "text-danger" })
+
+            @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
+            <div id="mapWrapper">
+                <input class="form-control" type="text" id="locationSearch" />
+                <div id="map"></div>
             </div>
-        </div>
+            @Html.HiddenFor(model => model.Latitude)
+            @Html.HiddenFor(model => model.Longitude)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Removed, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Removed)
-                    @Html.ValidationMessageFor(model => model.Removed, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
                 </div>
             </div>
         </div>
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

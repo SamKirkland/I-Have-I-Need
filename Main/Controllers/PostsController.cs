@@ -17,6 +17,8 @@ namespace Main.Controllers
         // GET: Posts
         public ActionResult Index()
         {
+            ViewBag.UserID = User.Identity.Name;
+
             var posts = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category);
             return View(posts.ToList());
         }
@@ -33,6 +35,11 @@ namespace Main.Controllers
             {
                 return HttpNotFound();
             }
+
+            post.ViewCount = Convert.ToInt32(post.ViewCount) + 1;
+            db.Entry(post).State = EntityState.Modified;
+            db.SaveChanges();
+
             return View(post);
         }
 
@@ -49,8 +56,10 @@ namespace Main.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostID,UserID,PostDate,Title,Description,ViewCount,CategoryID,Removed,Longitude,Latitude")] Post post)
+        public ActionResult Create([Bind(Include = "UserID,PostDate,Title,Description,ViewCount,CategoryID,Removed,Longitude,Latitude")] Post post)
         {
+            post.PostDate = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.Posts.Add(post);

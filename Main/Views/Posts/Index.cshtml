@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<Main.Post>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Search all Postings";
 }
 
-<h2>Index</h2>
+<h2>Search all Postings</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (!String.IsNullOrEmpty(ViewBag.UserID)) {
+    @Html.ActionLink("Create New Posting", "Create", null, new { @class = "btn btn-primary pull-right" })
+}
+else {
+    @Html.ActionLink("Register an account to create a posting", "Register", "Account", null, new { @class = "btn btn-default pull-right" })
+}
+
+
 <table class="table">
     <tr>
         <th>
@@ -65,9 +70,11 @@
             @Html.DisplayFor(modelItem => item.Category.CategoryName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PostID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PostID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PostID })
+            @if (String.Equals(item.AspNetUser.UserName, ViewBag.UserID)) {
+                @Html.ActionLink("Edit", "Edit", null, new { id = item.PostID }, new { @class = "btn btn-warning" })
+            }
+
+            @Html.ActionLink("View", "Details", null, new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
         </td>
     </tr>
 }
