@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Main;
 
 namespace Main.Controllers
@@ -59,6 +60,7 @@ namespace Main.Controllers
         public ActionResult Create([Bind(Include = "UserID,PostDate,Title,Description,ViewCount,CategoryID,Removed,Longitude,Latitude")] Post post)
         {
             post.PostDate = DateTime.Now;
+            post.UserID = User.Identity.GetUserId();
 
             if (ModelState.IsValid)
             {
@@ -96,6 +98,9 @@ namespace Main.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PostID,UserID,PostDate,Title,Description,ViewCount,CategoryID,Removed,Longitude,Latitude")] Post post)
         {
+            post.PostDate = DateTime.Now;
+            post.UserID = User.Identity.GetUserId();
+
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;

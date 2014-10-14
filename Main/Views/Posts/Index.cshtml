@@ -4,13 +4,25 @@
     ViewBag.Title = "Search all Postings";
 }
 
-<h2>Search all Postings</h2>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+<script src="~/Scripts/locationpicker.jquery.js"></script>
+<script src="~/Scripts/timeago.jquery.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("abbr.timeago").timeago();
+    });
+</script>
+
+
+<h2 class="pull-left">Search all Postings</h2>
 
 @if (!String.IsNullOrEmpty(ViewBag.UserID)) {
-    @Html.ActionLink("Create New Posting", "Create", null, new { @class = "btn btn-primary pull-right" })
+    @Html.ActionLink("Create New Posting", "Create", null, new { @class = "btn btn-primary pull-right", @style = "margin-top:15px;" })
 }
 else {
-    @Html.ActionLink("Register an account to create a posting", "Register", "Account", null, new { @class = "btn btn-default pull-right" })
+    @Html.ActionLink("Register an account to create a posting", "Register", "Account", null, new { @class = "btn btn-default pull-right", @style = "margin-top:15px;" })
 }
 
 
@@ -18,6 +30,9 @@ else {
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.PostDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -29,15 +44,6 @@ else {
             @Html.DisplayNameFor(model => model.ViewCount)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Category.CategoryName)
         </th>
         <th></th>
@@ -46,7 +52,10 @@ else {
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.PostDate)
+            <abbr class="timeago" title="@Html.DisplayFor(modelItem => item.PostDate)">@Html.DisplayFor(modelItem => item.PostDate)</abbr>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
@@ -58,23 +67,15 @@ else {
             @Html.DisplayFor(modelItem => item.ViewCount)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Longitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Latitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Category.CategoryName)
         </td>
         <td>
-            @if (String.Equals(item.AspNetUser.UserName, ViewBag.UserID)) {
-                @Html.ActionLink("Edit", "Edit", null, new { id = item.PostID }, new { @class = "btn btn-warning" })
-            }
-
             @Html.ActionLink("View", "Details", null, new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
+
+            @if (String.Equals(item.AspNetUser.UserName, ViewBag.UserID))
+            {
+                @Html.ActionLink("Edit", "Edit", null, new { id = item.PostID }, new { @class = "btn btn-warning pull-right" })
+            }
         </td>
     </tr>
 }

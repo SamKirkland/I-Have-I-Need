@@ -1,14 +1,18 @@
 ﻿@model IEnumerable<Main.Category>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage Categories";
 }
 
-<h2>Index</h2>
+<h2 class="pull-left">Manage Categories</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (!String.IsNullOrEmpty(ViewBag.UserID)) {
+    @Html.ActionLink("Create New Category", "Create", null, new { @class = "btn btn-primary pull-right", @style = "margin-top:15px;" })
+}
+else {
+    @Html.ActionLink("Register an account to create a Category", "Register", "Account", null, new { @class = "btn btn-default pull-right", @style = "margin-top:15px;" })
+}
+
 <table class="table">
     <tr>
         <th>
@@ -23,9 +27,8 @@
             @Html.DisplayFor(modelItem => item.CategoryName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CategoryID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID })
+            @Html.ActionLink("Delete", "Delete", null, new { id = item.CategoryID }, new { @class = "btn btn-danger pull-right" })
+            @Html.ActionLink("Edit", "Edit", null, new { id = item.CategoryID }, new { @class = "btn btn-warning pull-right" })
         </td>
     </tr>
 }

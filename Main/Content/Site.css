@@ -78,3 +78,12 @@ textarea {
   color: #008000;
   font-weight: bold;
 }
+
+
+
+
+/* Table styles */
+
+table.table th {
+    background: #e0e0e0;
+}
