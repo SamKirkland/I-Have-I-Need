@@ -88,6 +88,20 @@ namespace Main.Controllers
             {
                 return HttpNotFound();
             }
+
+            // don't allow the category to be deleted if its being used
+            int postsWithCategory = db.Posts.Where(p => p.CategoryID == category.CategoryID).Count();
+            if (postsWithCategory > 0)
+            {
+                string plural = "";
+                if (postsWithCategory > 1) {
+                    plural = "s";
+                }
+
+                ModelState.AddModelError(String.Empty,
+                        "This category has " + postsWithCategory + " post" + plural + " associated with it, please change those postings before deleting category");
+            }
+
             return View(category);
         }
 
@@ -97,6 +111,14 @@ namespace Main.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Category category = db.Categories.Find(id);
+
+            // don't allow the category to be deleted if its being used
+            int postsWithCategory = db.Posts.Where(p => p.CategoryID == category.CategoryID).Count();
+            if (postsWithCategory > 0) {
+                return RedirectToAction("Delete");
+            }
+
+            // remove the category
             db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("Index");

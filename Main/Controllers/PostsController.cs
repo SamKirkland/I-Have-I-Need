@@ -86,6 +86,12 @@ namespace Main.Controllers
             {
                 return HttpNotFound();
             }
+
+            // if the user is not an admin or the original poster, deny them access
+            if (post.AspNetUser.Email != User.Identity.Name) {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", post.UserID);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", post.CategoryID);
             return View(post);

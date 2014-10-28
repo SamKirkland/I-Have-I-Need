@@ -6,6 +6,19 @@
 
 <h2>Delete</h2>
 
+@if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.ValidationSummary(true, "Errors: ")
+    </div>
+}
+else
+{
+    <div class="alert alert-success" role="alert">
+        This category is not associated with any postings, you can delete it.
+    </div>
+}
+
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Category</h4>
@@ -25,8 +38,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger pull-right" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
         </div>
     }
 </div>

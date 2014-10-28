@@ -118,25 +118,233 @@
             if (input.files && input.files[0]) {
                 var FR = new FileReader();
                 FR.onload = function (e) {
-                    $('#img').attr("src", e.target.result);
-                    $('#base').text(e.target.result);
+                    //$('#img').attr("src", e.target.result);
+                    //$('#base').text(e.target.result);
+
+                    $("#imageUploadInner").append('<div class="img"><img src="' + e.target.result + '"><div class="delete">X</div></div>');
+                    $('.delete').on('click', function () {
+                        $(this).parents('.img').remove();
+                    });
                 };
                 FR.readAsDataURL(input.files[0]);
             }
         }
 
-        $("#asd").change(function () {
+        $("#files").change(function () {
             readImage(this);
         });
     });
 </script>
+<style type="text/css">
+    #imageUploadWrapper {
+        background: #EFEFEF;
+        border: 1px solid black;
+        display: block;
+        float: right;
+        width: 49%;
+        height: 400px;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    #imageUploadInner {
+        display: block;
+        width: 5000px;
+        height: 400px;
+    }
+        #imageUploadInner .img {
+            display: inline-block;
+            border: 1px solid black;
+            background: #fff;
+            float: left;
+            width: 350px;
+            height: 350px;
+            margin: 25px;
+            position: relative;
+        }
+        #imageUploadInner .img img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+            #imageUploadInner .img .delete {
+                background: #EFEFEF;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
 
-<input type='file' id="asd" />
-<img id="img" src="" />
-<div id="base"></div>
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                z-index: 10;
+
+                margin-top: -20px;
+                margin-left: -20px;
+
+                font-size: 20px;
+                line-height: 40px;
+                border-radius: 20px;
+                text-align: center;
+            }
+    .advanced-wrapper {
+        width: 100%;
+    }
+    #content-container {
+        display: block;
+        width: 49%;
+        float: left;
+    }
+
+    #drop_zone {
+        width: 250px;
+        height: 150px;
+        border: 2px dashed #e0e0e0;
+    }
+
+    #dropZone {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        z-index: 99997;
+        background: #fff;
+        opacity: 0.8;
+    }
+        #dropZone div {
+            display: block;
+            position: fixed;
+            top: 5%;
+            right: 5%;
+            bottom: 5%;
+            left: 5%;
+            z-index: 99998;
+
+            border: 2px dashed #808080;
+            text-align: center;
+            font-size: 42px;
+        }
+        #dropZone div div {
+            display: block;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            z-index: 99999;
+
+            height: 50px;
+            width: 600px;
+
+            margin: -25px 0 0 -300px;
+
+            border: none;
+            line-height: 50px;
+            text-align: center;
+            font-size: 42px;
+        }
+</style>
 
 
 
+<div id="imageUploadWrapper">
+    <div id="imageUploadInner"></div>
+</div>
+
+
+<input type="file" id="files" name="files[]" multiple />
+<output id="list"></output>
+
+<div class="clearfix"></div>
+
+<script>
+    $(document).ready(function(){
+        function handleFileSelect(evt) {
+            //evt.stopPropagation();
+            evt.preventDefault();
+
+            var files = evt.dataTransfer.files; // FileList object.
+
+
+            for (var i = 0, f; f = files[i]; i++) {
+
+                // Only process image files.
+                if (!f.type.match('image.*')) {
+                    continue;
+                }
+
+                var reader = new FileReader();
+
+                // Closure to capture the file information.
+                reader.onload = (function (theFile) {
+                    return function (e) {
+                        // e.target.result
+                        // escape(theFile.name)
+
+                        var output = '<div class="img"><img src="'
+                                        + e.target.result +
+                                    '"><div class="name">'
+                                        + theFile.name +
+                                    '</div><div class="size">'
+                                        + theFile.size +
+                                    '</div><div class="delete">X</div></div>';
+                        $("#imageUploadInner").append(output);
+                    };
+                })(f);
+                
+                // Read in the image file as a data URL.
+                reader.readAsDataURL(f);
+            }
+        }
+
+        function handleDragOver(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+        }
+
+        // The plugin code
+        $.fn.draghover = function (options) {
+            return this.each(function () {
+
+                var collection = $(),
+                    self = $(this);
+
+                self.on('dragenter', function (e) {
+                    if (collection.length === 0) {
+                        self.trigger('draghoverstart');
+                    }
+                    collection = collection.add(e.target);
+                });
+
+                self.on('dragleave drop', function (e) {
+                    collection = collection.not(e.target);
+                    if (collection.length === 0) {
+                        self.trigger('draghoverend');
+                    }
+                });
+            });
+        };
+
+
+        var dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', handleDragOver, false);
+        dropZone.addEventListener('drop', handleFileSelect, false);
+
+        // Now that we have a plugin, we can listen for the new events 
+        $(window).draghover().on({
+            'draghoverstart': function () {
+                $('#dropZone').show();
+            },
+            'draghoverend': function () {
+                $('#dropZone').hide();
+            }
+        });
+    });
+</script>
+
+<div id="dropZone">
+    <div><div>Drop Files Here to Add Them</div></div>
+</div>
 
 
     @using (Html.BeginForm())
@@ -183,17 +391,14 @@
             @Html.HiddenFor(model => model.Longitude)
 
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Create" class="btn btn-success pull-right" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
             </div>
         </div>
     }
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

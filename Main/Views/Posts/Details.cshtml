@@ -102,8 +102,10 @@
 </div>
 
 
+<div class="form-actions no-color">
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PostID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    @if (Model.AspNetUser.Email == User.Identity.Name) {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.PostID }, new { @class = "btn btn-warning pull-right" })
+    }
+</div>
