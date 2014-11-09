@@ -66,6 +66,7 @@ namespace Main.Controllers
 
 
             ViewData["posts"] = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category).Where(p => p.AspNetUser.UserName == User.Identity.Name).ToList();
+            ViewData["comments"] = db.Comments.Include(p => p.AspNetUser).Where(p => p.AspNetUser.UserName == User.Identity.Name).ToList();
 
 
             return View(model);

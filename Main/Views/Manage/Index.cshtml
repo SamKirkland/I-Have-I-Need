@@ -12,7 +12,7 @@
     <dl class="dl-horizontal">
         <dt>Password:</dt>
         <dd>
-            
+
             @if (Model.HasPassword)
             {
                 @Html.ActionLink("Change your password", "ChangePassword", null, new { @class = "btn btn-primary" })
@@ -21,7 +21,7 @@
             {
                 @Html.ActionLink("Create", "SetPassword", null, new { @class = "btn btn-primary" })
             }
-            
+
         </dd>
 
 
@@ -31,15 +31,16 @@
             @Model.Logins.Count
             @Html.ActionLink("Manage", "ManageLogins", null, new { @class = "btn btn-primary" })
         </dd>
-        
+
         Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-            See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
-            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-            Uncomment the following block after you have set up two-factor authentication
-        
-        
+
+        See
+        <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
+        for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+        Uncomment the following block after you have set up two-factor authentication
+
+
         <dt>Phone Number:</dt>
         <dd>
             @(Model.PhoneNumber ?? "None")
@@ -54,14 +55,14 @@
                 @Html.ActionLink("Add", "AddPhoneNumber", null, new { @class = "btn btn-primary" })
             }
         </dd>
-        
+
         <dt>Two-Factor Authentication:</dt>
         <dd>
             <p>
                 There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication.
             </p>
-           @if (Model.TwoFactor)
+            @if (Model.TwoFactor)
             {
 
                 <form method="post" action="/Manage/DisableTwoFactorAuthentication">
@@ -84,45 +85,93 @@
 
 
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
 
+            <table class="table">
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        ViewCount
+                    </th>
+                    <th></th>
+                </tr>
 
+                @{
+                    int itemCount = 0;
+                    foreach (var item in ViewData["posts"] as List<Main.Post>)
+                    {
+                        itemCount = itemCount + 1;
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ViewCount)
+                            </td>
+                            <td>
+                                @Html.ActionLink("View", "Details", "Posts", new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
+                                @Html.ActionLink("Edit", "Edit", "Posts", new { id = item.PostID }, new { @class = "btn btn-warning pull-right" })
+                            </td>
+                        </tr>
+                    }
 
-<table class="table">
-    <tr>
-        <th>
-            Title
-        </th>
-        <th>
-            ViewCount
-        </th>
-        <th></th>
-    </tr>
+                    if (itemCount == 0)
+                    {
+                        <tr>
+                            <td>
+                                You have no posts yet!
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
 
-    @{
-        int itemCount = 0;
-        foreach (var item in ViewData["posts"] as List<Main.Post>)
-        {
-            itemCount = itemCount + 1;
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ViewCount)
-                </td>
-                <td>
-                    @Html.ActionLink("View", "Details", null, new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
-                    @Html.ActionLink("Edit", "Edit", null, new { id = item.PostID }, new { @class = "btn btn-warning pull-right" })
-                </td>
-            </tr>
-        }
+        </div>
+            <div class="col-md-6">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Comment
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th></th>
+                    </tr>
 
-        if (itemCount == 0) {
-            <tr>
-                <td>
-                    You have no posts yet!
-                </td>
-            </tr>
-        }
-    }
-</table>
+                    @{
+                        itemCount = 0;
+                        foreach (var item in ViewData["comments"] as List<Main.Comment>)
+                        {
+                            itemCount = itemCount + 1;
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CommentDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CommentDate)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("View", "Details", "Comments", new { id = item.CommentID }, new { @class = "btn btn-success pull-right" })
+                                    @Html.ActionLink("Edit", "Edit", "Comments", new { id = item.CommentID }, new { @class = "btn btn-warning pull-right" })
+                                </td>
+                            </tr>
+                        }
+
+                        if (itemCount == 0)
+                        {
+                            <tr>
+                                <td>
+                                    You have no comments yet!
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
