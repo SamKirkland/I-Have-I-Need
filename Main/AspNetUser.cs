@@ -16,11 +16,11 @@ namespace Main
     {
         public AspNetUser()
         {
-            this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.Comments = new HashSet<Comment>();
             this.Posts = new HashSet<Post>();
+            this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
         }
     
         public string Id { get; set; }
@@ -35,11 +35,12 @@ namespace Main
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
+        public string Avatar { get; set; }
     
-        public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
     }
 }

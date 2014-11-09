@@ -5,6 +5,7 @@
 
 <h2>@ViewBag.Title</h2>
 
+
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <hr />
@@ -79,3 +80,49 @@
         </dd>
     </dl>
 </div>
+
+
+
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            ViewCount
+        </th>
+        <th></th>
+    </tr>
+
+    @{
+        int itemCount = 0;
+        foreach (var item in ViewData["posts"] as List<Main.Post>)
+        {
+            itemCount = itemCount + 1;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ViewCount)
+                </td>
+                <td>
+                    @Html.ActionLink("View", "Details", null, new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
+                    @Html.ActionLink("Edit", "Edit", null, new { id = item.PostID }, new { @class = "btn btn-warning pull-right" })
+                </td>
+            </tr>
+        }
+
+        if (itemCount == 0) {
+            <tr>
+                <td>
+                    You have no posts yet!
+                </td>
+            </tr>
+        }
+    }
+</table>

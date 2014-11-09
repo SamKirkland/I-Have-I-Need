@@ -6,13 +6,20 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Main;
 using Main.Models;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Net;
 
 namespace Main.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private CSCI4830Entities db = new CSCI4830Entities();
+
         public ManageController()
         {
         }
@@ -56,6 +63,11 @@ namespace Main.Controllers
                 Logins = await UserManager.GetLoginsAsync(User.Identity.GetUserId()),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(User.Identity.GetUserId())
             };
+
+
+            ViewData["posts"] = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category).Where(p => p.AspNetUser.UserName == User.Identity.Name).ToList();
+
+
             return View(model);
         }
 

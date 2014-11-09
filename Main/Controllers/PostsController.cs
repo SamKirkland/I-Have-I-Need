@@ -41,6 +41,8 @@ namespace Main.Controllers
             db.Entry(post).State = EntityState.Modified;
             db.SaveChanges();
 
+            ViewData["comments"] = db.Comments.Include(p => p.AspNetUser).Where(p => p.PostID == post.PostID).ToList();
+
             return View(post);
         }
 

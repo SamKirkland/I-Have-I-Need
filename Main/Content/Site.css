@@ -89,3 +89,7 @@ textarea {
 table.table th {
     background: #e0e0e0;
 }
+
+table.table tr:nth-child(2n+1) {
+    background: #f6f6f6;
+}

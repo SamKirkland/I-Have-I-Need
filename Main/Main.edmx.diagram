@@ -5,20 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="46f896e3a4a44dbfb5badc95738de8c9" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="CSCI4830Model.AspNetRole" Width="2.125" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserClaim" Width="2.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserLogin" Width="2.375" PointX="5.25" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSCI4830Model.AspNetUser" Width="1.625" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSCI4830Model.Category" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="CSCI4830Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CSCI4830Model.AspNetRole" Width="2.125" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserLogin" Width="2.375" PointX="3.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSCI4830Model.AspNetUser" Width="1.625" PointX="0.625" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSCI4830Model.Category" Width="1.5" PointX="6.75" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="CSCI4830Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="CSCI4830Model.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CSCI4830Model.Comment" Width="1.5" PointX="11.5" PointY="4" />
+        <EntityTypeShape EntityType="CSCI4830Model.Comment" Width="1.5" PointX="8.5" PointY="2" />
         <AssociationConnector Association="CSCI4830Model.FK_UserID_AspNetUsers" />
-        <EntityTypeShape EntityType="CSCI4830Model.Post" Width="1.5" PointX="9.25" PointY="2.625" />
+        <EntityTypeShape EntityType="CSCI4830Model.Post" Width="2.375" PointX="3.375" PointY="0.5" />
         <AssociationConnector Association="CSCI4830Model.FK_UserID" />
         <AssociationConnector Association="CSCI4830Model.FK_CategoryID" />
         <AssociationConnector Association="CSCI4830Model.FK_PostID" />
+        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserClaim" Width="2.375" PointX="6.625" PointY="5.125" />
+        <AssociationConnector Association="CSCI4830Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

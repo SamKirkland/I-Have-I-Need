@@ -1,7 +1,7 @@
 ﻿@model Main.Post
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Post Details";
 }
 
 
@@ -39,10 +39,9 @@
 </script>
 
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>Post</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -100,6 +99,61 @@
     <input disabled="disabled" class="form-control" type="text" id="locationSearch" />
     <div id="map"></div>
 </div>
+
+
+<hr />
+<h4>Comments</h4>
+
+<table class="table" style="border-bottom:1px solid #ddd">
+    @{
+        int itemCount = 0;
+        foreach (var item in ViewData["comments"] as List<Main.Comment>)
+        {
+            itemCount = itemCount + 1;
+            <tr>
+                <td>
+                    <img width="64" height="64" alt="User Avatar Picture"
+                         src="@item.AspNetUser.Avatar"/>
+                    <br />
+                    @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommentDescription)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.PostID }, new { @class = "btn btn-danger pull-right" })
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+
+@using (Html.BeginForm("Create", "Comments", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.PostID)
+        
+        <div class="form-group">
+            <label for="CommentDescription" class="control-label col-md-12">Add New Comment:</label>
+            <div class="col-md-12">
+                <textarea style="width:100%;max-width:100%;" class="form-control" id="CommentDescription" name="CommentDescription"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Create Comment" class="btn btn-success pull-right" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
 
 
 <div class="form-actions no-color">
