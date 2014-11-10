@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: #f6f6f6;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -90,9 +91,110 @@ textarea {
 /* Table styles */
 
 table.table th {
-    background: #e0e0e0;
+    background: #f17c5d;
+    color: #fff;
 }
 
 table.table tr:nth-child(2n+1) {
-    background: #f6f6f6;
+    background: rgb(200,200,200);
+}
+
+
+
+.navbar {
+    background-color: #fff !important;
+    border-color: #fff;
+
+    border-bottom: 10px solid rgb(110, 110, 110);
+
+    margin-top: 0px;
+}
+
+.navbar-nav > li > a {
+    color: #000;
+}
+.navbar-nav > li > a:hover {
+    background: transparent;
+    color: #000;
+    font-weight: bold;
+}
+#logo {
+    background: url('../img/logo.png') no-repeat;
+    background-size: contain;
+    width: 200px;
+    height: 200px;
+    text-indent: -8000px;
+
+    position: absolute;
+    top: 10px;
+    z-index: 99999;
+}
+
+
+#pageTitle {
+    text-align: center;
+}
+
+
+body > .container {
+    padding: 35px 0 15px 0 !important;
+}
+
+
+
+
+.btn-primary {
+    border-color: rgb(110, 110, 110) !important;
+    background-color: rgb(190, 190, 190) !important;
+}
+
+    .btn-primary:hover {
+        border-color: rgb(90, 90, 90) !important;
+        background-color: rgb(160, 160, 160) !important;
+    }
+
+
+
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f17c5d;
+}
+.text-muted {
+    color: #fff;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
 }
