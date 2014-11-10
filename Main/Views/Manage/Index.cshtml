@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Manage Your Account";
 }
-
 <h2>@ViewBag.Title</h2>
 
 
@@ -82,55 +81,108 @@
     </dl>
 </div>
 
-
-
-
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
+    <video autoplay id="vid" width="256" height="256" style="border:1px solid #d3d3d3;"></video>
+    <canvas id="canvas" style="border:1px solid #d3d3d3;" width="256" height="256"></canvas><br>
+    <button onclick="snapshot()">Take Picture</button>
 
-            <table class="table">
-                <tr>
-                    <th>
-                        Title
-                    </th>
-                    <th>
-                        ViewCount
-                    </th>
-                    <th></th>
-                </tr>
+    <script type="text/javascript">
+            var video = document.querySelector("#vid");
+            var canvas = document.querySelector('#canvas');
+            var ctx = canvas.getContext('2d');
+            var localMediaStream = null;
 
-                @{
-                    int itemCount = 0;
-                    foreach (var item in ViewData["posts"] as List<Main.Post>)
-                    {
-                        itemCount = itemCount + 1;
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ViewCount)
-                            </td>
-                            <td>
-                                @Html.ActionLink("View", "Details", "Posts", new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
-                                @Html.ActionLink("Edit", "Edit", "Posts", new { id = item.PostID }, new { @class = "btn btn-warning pull-right" })
-                            </td>
-                        </tr>
-                    }
+            var onCameraFail = function (e) {
+                console.log('Camera did not work.', e);
+            };
 
-                    if (itemCount == 0)
-                    {
-                        <tr>
-                            <td>
-                                You have no posts yet!
-                            </td>
-                        </tr>
-                    }
+            function snapshot() {
+                if (localMediaStream) {
+                    ctx.drawImage(video, 0, 0, 256, 256);
+                    console.log(canvas.toDataURL());
+                    $("#avatar").val(canvas.toDataURL());
                 }
-            </table>
+            }
 
+
+            /*   video.clientHeight(256);
+               video.clientWidth(256);*/
+
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+            window.URL = window.URL || window.webkitURL;
+            navigator.getUserMedia({ video: true }, function (stream) {
+                video.src = window.URL.createObjectURL(stream);
+                localMediaStream = stream;
+            }, onCameraFail);
+    </script>
+</div>
+
+
+@using (Html.BeginForm("ChangeAvatar", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        
+        <input id="avatar" type="hidden" name="avatar" />
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="save Avatar" class="btn btn-success pull-right" />
+            </div>
         </div>
+    </div>
+}
+
+<br /><br /><br />
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            ViewCount
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @{
+                        int itemCount = 0;
+                        foreach (var item in ViewData["posts"] as List<Main.Post>)
+                        {
+                            itemCount = itemCount + 1;
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ViewCount)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("View", "Details", "Posts", new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
+                                    @Html.ActionLink("Edit", "Edit", "Posts", new { id = item.PostID }, new { @class = "btn btn-warning pull-right" })
+                                </td>
+                            </tr>
+                        }
+
+                        if (itemCount == 0)
+                        {
+                            <tr>
+                                <td>
+                                    You have no posts yet!
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+
+            </div>
             <div class="col-md-6">
                 <table class="table">
                     <tr>

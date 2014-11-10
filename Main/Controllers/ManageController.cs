@@ -42,6 +42,22 @@ namespace Main.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult ChangeAvatar(string avatar) {
+
+            if (ModelState.IsValid)
+            {
+                var UserID = User.Identity.GetUserId();
+                AspNetUser user = db.AspNetUsers.Where(m => m.Id == UserID).FirstOrDefault();
+                user.Avatar = avatar;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("index");
+        }
+
+
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
