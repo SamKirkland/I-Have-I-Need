@@ -121,12 +121,12 @@ table.table tr:nth-child(2n+1) {
 #logo {
     background: url('../img/logo.png') no-repeat;
     background-size: contain;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     text-indent: -8000px;
 
     position: absolute;
-    top: 10px;
+    top: 5px;
     z-index: 99999;
 }
 
@@ -154,7 +154,9 @@ body > .container {
     }
 
 
-
+input {
+    max-width: 100%;
+}
 
 
 /* Sticky footer styles
@@ -198,3 +200,120 @@ body > .container {
 code {
   font-size: 80%;
 }
+
+
+/* Quill.js */
+.descriptionView {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 12px 15px;
+}
+
+/* Image upload drag and drop code */
+/*------------------------------------------------------------------*/
+    #imageUploadWrapper {
+        background: #EFEFEF;
+        border: 1px solid black;
+        display: block;
+        float: right;
+        width: 100%;
+        height: 250px;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    #imageUploadInner {
+        display: block;
+        width: 750px;
+        height: 250px;
+    }
+
+        #imageUploadInner .img {
+            display: inline-block;
+            border: 1px solid black;
+            background: #fff;
+            float: left;
+            width: 150px;
+            height: 150px;
+            margin: 25px;
+            position: relative;
+        }
+
+            #imageUploadInner .img img {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            #imageUploadInner .img .delete {
+                background: #EFEFEF;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                z-index: 10;
+                margin-top: -20px;
+                margin-left: -20px;
+                font-size: 20px;
+                line-height: 40px;
+                border-radius: 20px;
+                text-align: center;
+            }
+
+    .advanced-wrapper {
+        width: 100%;
+        margin: 0;
+        background: #fff;
+    }
+
+    .editor-container {
+        height: 125px;
+    }
+
+    #drop_zone {
+        width: 250px;
+        height: 150px;
+        border: 2px dashed #e0e0e0;
+    }
+
+    #dropZone {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 99997;
+        background: #fff;
+        opacity: 0.8;
+    }
+
+        #dropZone div {
+            display: block;
+            position: fixed;
+            top: 5%;
+            right: 5%;
+            bottom: 5%;
+            left: 5%;
+            z-index: 99998;
+            border: 2px dashed #808080;
+            text-align: center;
+            font-size: 42px;
+        }
+
+            #dropZone div div {
+                display: block;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                z-index: 99999;
+                height: 50px;
+                width: 600px;
+                margin: -25px 0 0 -300px;
+                border: none;
+                line-height: 50px;
+                text-align: center;
+                font-size: 42px;
+            }

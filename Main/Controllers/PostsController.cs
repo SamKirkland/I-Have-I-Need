@@ -16,11 +16,17 @@ namespace Main.Controllers
         private CSCI4830Entities db = new CSCI4830Entities();
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(String search)
         {
             ViewBag.UserID = User.Identity.Name;
 
             var posts = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category);
+
+            if (!String.IsNullOrEmpty(search)) {
+                ViewBag.search = search;
+                posts = posts.Where(p => p.Description.Contains(search) || p.Title.Contains(search));
+            }
+
             return View(posts.ToList());
         }
 
@@ -57,7 +63,7 @@ namespace Main.Controllers
         // POST: Posts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserID,PostDate,Title,Description,ViewCount,CategoryID,Removed,Longitude,Latitude")] Post post)
         {

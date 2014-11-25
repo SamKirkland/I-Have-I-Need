@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-
+    <script src="~/Scripts/timeago.jquery.js"></script>
     <script src="~/Scripts/common.js"></script>
 </head>
 <body>
@@ -31,7 +31,6 @@
                     <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
                     <li>@Html.ActionLink("Manage Categories", "Index", "Categories")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

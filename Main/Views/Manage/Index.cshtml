@@ -208,8 +208,7 @@
                                     @Html.DisplayFor(modelItem => item.CommentDate)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("View", "Details", "Comments", new { id = item.CommentID }, new { @class = "btn btn-success pull-right" })
-                                    @Html.ActionLink("Edit", "Edit", "Comments", new { id = item.CommentID }, new { @class = "btn btn-warning pull-right" })
+                                    @Html.ActionLink("View", "Details", "Posts", new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
                                 </td>
                             </tr>
                         }

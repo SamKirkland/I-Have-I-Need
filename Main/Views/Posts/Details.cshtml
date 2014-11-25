@@ -1,7 +1,7 @@
 ﻿@model Main.Post
 
 @{
-    ViewBag.Title = "Post Details";
+    ViewBag.Title = "View Post";
 }
 
 
@@ -10,12 +10,9 @@
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
 <script src="~/Scripts/locationpicker.jquery.js"></script>
-<script src="~/Scripts/timeago.jquery.js"></script>
 
 <script>
     $(document).ready(function () {
-        $("abbr.timeago").timeago();
-
         $('#map').locationpicker({
             @if (Model.Longitude.HasValue && Model.Latitude.HasValue) {
                 <text>
@@ -63,7 +60,9 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            <div class="descriptionView">
+                @Html.Raw(Model.Description)
+            </div>
         </dd>
 
         <dt>
@@ -125,7 +124,7 @@
                     @Html.DisplayFor(modelItem => item.CommentDescription)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.PostID }, new { @class = "btn btn-danger pull-right" })
+                    @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.CommentID }, new { @class = "btn btn-danger pull-right" })
                 </td>
             </tr>
         }
