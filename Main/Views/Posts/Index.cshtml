@@ -42,6 +42,9 @@ else {
 <table class="table">
     <tr>
         <th>
+            Avatar
+        </th>
+        <th>
             User
         </th>
         <th>
@@ -62,10 +65,13 @@ else {
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-
-            <img width="64" height="64" alt="User Avatar Picture"
-                 src="@item.AspNetUser.Avatar" />
+            <a class="avatarLink" href="/Manage/ViewUser?user=@Html.DisplayFor(modelItem => item.UserID)">
+                <img width="64" height="64" alt="User Avatar Picture"
+                     src="@item.AspNetUser.Avatar" />
+            </a>
+        </td>
+        <td>
+            @item.AspNetUser.Email.Split('@')[0]
         </td>
         <td>
             <abbr class="timeago" title="@Html.DisplayFor(modelItem => item.PostDate)">@Html.DisplayFor(modelItem => item.PostDate)</abbr>

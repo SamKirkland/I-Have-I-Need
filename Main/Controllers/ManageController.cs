@@ -58,6 +58,18 @@ namespace Main.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult ViewUser(String user) {
+            AspNetUser u = db.AspNetUsers.Where(m => m.Id == user).FirstOrDefault();
+
+            ViewBag.Avatar = db.AspNetUsers.Where(p => p.Id == user).FirstOrDefault().Avatar;
+
+            ViewData["posts"] = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category).Where(p => p.AspNetUser.Id == user).ToList();
+            ViewData["comments"] = db.Comments.Include(p => p.AspNetUser).Where(p => p.AspNetUser.Id == user).ToList();
+
+            return View(u);
+        }
+
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
@@ -80,6 +92,8 @@ namespace Main.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(User.Identity.GetUserId())
             };
 
+
+            ViewBag.Avatar = db.AspNetUsers.Where(p => p.UserName == User.Identity.Name).FirstOrDefault().Avatar;
 
             ViewData["posts"] = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category).Where(p => p.AspNetUser.UserName == User.Identity.Name).ToList();
             ViewData["comments"] = db.Comments.Include(p => p.AspNetUser).Where(p => p.AspNetUser.UserName == User.Identity.Name).ToList();

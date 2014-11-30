@@ -1,0 +1,218 @@
+﻿@model Main.AspNetUser
+
+@{
+    ViewBag.Title = "ViewUser";
+}
+
+<h2>ViewUser</h2>
+
+
+<img width="256" height="256" alt="User Avatar Picture"
+     src="@ViewBag.Avatar" />
+    </a>
+
+<div>
+    <h4>AspNetUser</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailConfirmed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailConfirmed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PasswordHash)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PasswordHash)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecurityStamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumberConfirmed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TwoFactorEnabled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LockoutEndDateUtc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LockoutEnabled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LockoutEnabled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccessFailedCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccessFailedCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Avatar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Avatar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+
+    </dl>
+</div>
+
+
+<br /><br /><br />
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        ViewCount
+                    </th>
+                    <th></th>
+                </tr>
+
+                @{
+                    int itemCount = 0;
+                    foreach (var item in ViewData["posts"] as List<Main.Post>)
+                    {
+                        itemCount = itemCount + 1;
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ViewCount)
+                            </td>
+                            <td>
+                                @Html.ActionLink("View", "Details", "Posts", new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
+                                @Html.ActionLink("Edit", "Edit", "Posts", new { id = item.PostID }, new { @class = "btn btn-warning pull-right" })
+                            </td>
+                        </tr>
+                    }
+
+                    if (itemCount == 0)
+                    {
+                        <tr>
+                            <td>
+                                You have no posts yet!
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+
+        </div>
+        <div class="col-md-6">
+            <table class="table">
+                <tr>
+                    <th>
+                        Comment
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th></th>
+                </tr>
+
+                @{
+                    itemCount = 0;
+                    foreach (var item in ViewData["comments"] as List<Main.Comment>)
+                    {
+                        itemCount = itemCount + 1;
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CommentDescription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CommentDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("View", "Details", "Posts", new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
+                            </td>
+                        </tr>
+                    }
+
+                    if (itemCount == 0)
+                    {
+                        <tr>
+                            <td>
+                                You have no comments yet!
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</div>

@@ -20,11 +20,11 @@ namespace Main.Controllers
         {
             ViewBag.UserID = User.Identity.Name;
 
-            var posts = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category);
+            var posts = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category).OrderByDescending(p => p.PostDate);
 
             if (!String.IsNullOrEmpty(search)) {
                 ViewBag.search = search;
-                posts = posts.Where(p => p.Description.Contains(search) || p.Title.Contains(search));
+                posts = posts.Where(p => p.Description.Contains(search) || p.Title.Contains(search)).OrderByDescending(p => p.PostDate);
             }
 
             return View(posts.ToList());
@@ -110,7 +110,7 @@ namespace Main.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,UserID,PostDate,Title,Description,ViewCount,CategoryID,Removed,Longitude,Latitude")] Post post)
+        public ActionResult Edit([Bind(Include = "PostID,UserID,PostDate,Title,Description,CategoryID,Removed,Longitude,Latitude")] Post post)
         {
             post.PostDate = DateTime.Now;
             post.UserID = User.Identity.GetUserId();

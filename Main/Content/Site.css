@@ -209,6 +209,21 @@ code {
     padding: 12px 15px;
 }
 
+
+.avatarLink {
+    border: 5px solid #f17c5d;
+    border-radius: 3px;
+    display: inline-block;
+}
+.avatarLink:hover {
+    border: 5px solid #972a0d;
+}
+    .avatarLink img {
+        display: inline-block;
+        background: url('/img/avatar.png');
+        background-size: contain;
+    }
+
 /* Image upload drag and drop code */
 /*------------------------------------------------------------------*/
     #imageUploadWrapper {

@@ -115,10 +115,13 @@
             itemCount = itemCount + 1;
             <tr>
                 <td>
-                    <img width="64" height="64" alt="User Avatar Picture"
-                         src="@item.AspNetUser.Avatar"/>
-                    <br />
-                    @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
+                    <a class="avatarLink" href="/Manage/ViewUser?user=@Html.DisplayFor(modelItem => item.UserID)">
+                        <img width="64" height="64" alt="User Avatar Picture"
+                             src="@item.AspNetUser.Avatar" />
+                    </a>
+                </td>
+                <td>
+                    @item.AspNetUser.Email.Split('@')[0]
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CommentDescription)
