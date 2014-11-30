@@ -36,6 +36,7 @@ namespace Main
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
         public string Avatar { get; set; }
+        public Nullable<int> Role { get; set; }
     
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }

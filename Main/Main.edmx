@@ -56,6 +56,7 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Avatar" Type="varchar(max)" />
+          <Property Name="Role" Type="int" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -280,6 +281,7 @@
           <NavigationProperty Name="Posts" Relationship="CSCI4830Model.FK_UserID" FromRole="AspNetUser" ToRole="Post" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="CSCI4830Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <Property Name="Avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="Int32" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -472,6 +474,7 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="CSCI4830Model.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
