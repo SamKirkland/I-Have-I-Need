@@ -1,29 +1,17 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-
-
+﻿
 <br /><br /><br />
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Start Now!</h2>
+
+<div id="homePage">
+        <h2>Welcome!</h2>
+    <br />
+    <br />
         <p>
-            Start posting and accepting!
-        </p>
+            Welcome to I Have I Need. A community driven site where you are in control. Offer up something you have to help out others in the community. Looking for something that you need? We have that option  too. Explore the possiblites of what others have to offer.
+            Click the register button above to get started
+         </p>
         <p>
         @Html.ActionLink("Start Now", "Register", "Account", new { @class="btn btn-default" })
-        @*<a class="btn btn-default" href="http://hurr-durr.com/">Learn more &raquo;</a>*@
+
         </p>
-    </div>
-    <div class="col-md-4">
-        <h2>Need Something?</h2>
-        <p>See what people have posted!</p>
-        <p><a class="btn btn-default" href="http://www.youtube.com/watch?v=KCiIZa6rVrw">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Scrub Hosting</h2>
-        <p>Git rekt scrub</p>
-        <p><a class="btn btn-default" href="http://hurr-durr.com/">Learn more &raquo;</a></p>
-    </div>
 </div>

@@ -2,7 +2,10 @@
 @{
     ViewBag.Title = "Manage Your Account";
 }
-<h2>@ViewBag.Title</h2>
+
+<br />
+<br />
+
 
 
 <p class="text-success">@ViewBag.StatusMessage</p>
@@ -26,62 +29,6 @@
                 @Html.ActionLink("Create", "SetPassword", null, new { @class = "btn btn-primary" })
             }
 
-        </dd>
-
-
-
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count
-            @Html.ActionLink("Manage", "ManageLogins", null, new { @class = "btn btn-primary" })
-        </dd>
-
-        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-
-        See
-        <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
-        for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-
-        Uncomment the following block after you have set up two-factor authentication
-
-
-        <dt>Phone Number:</dt>
-        <dd>
-            @(Model.PhoneNumber ?? "None")
-            @if (Model.PhoneNumber != null)
-            {
-                @Html.ActionLink("Change", "AddPhoneNumber", null, new { @class = "btn btn-primary" })
-                @: &nbsp;|&nbsp;
-                @Html.ActionLink("Remove", "RemovePhoneNumber", null, new { @class = "btn btn-primary" })
-            }
-            else
-            {
-                @Html.ActionLink("Add", "AddPhoneNumber", null, new { @class = "btn btn-primary" })
-            }
-        </dd>
-
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @if (Model.TwoFactor)
-            {
-
-                <form method="post" action="/Manage/DisableTwoFactorAuthentication">
-                    <span style="color:green;">Currently Enabled</span>
-                    <input type="submit" value="Disable" class="btn btn-danger" />
-                </form>
-            }
-            else
-            {
-
-                <form method="post" action="/Manage/EnableTwoFactorAuthentication">
-                    <span style="color:red;">Currently Disabled</span>
-                    <input type="submit" value="Enable" class="btn btn-success" />
-                </form>
-            }
         </dd>
     </dl>
 </div>
