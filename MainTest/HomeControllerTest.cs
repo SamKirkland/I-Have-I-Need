@@ -8,12 +8,24 @@ namespace MainTest
     public class HomeControllerTest
     {
         [TestMethod]
-        public void HomeController()
+        public void testIndex()
         {
             HomeController homeController = new HomeController();
             ActionResult index = homeController.Index();
+        }
+
+        [TestMethod]
+        public void testAbout()
+        {
+            HomeController homeController = new HomeController();
             ActionResult about = homeController.About();
-            ActionResult contact = homeController.Contact();
+        }
+
+        [TestMethod]
+        public void testContact()
+        {
+            HomeController homeController = new HomeController();
+            ActionResult index = homeController.Contact();
         }
     }
 }
