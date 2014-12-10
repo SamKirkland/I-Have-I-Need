@@ -147,6 +147,7 @@ namespace Main.Controllers
             var test = Request.Form.GetValues("images");
 
             post.PostDate = DateTime.Now;
+            var something = post.CategoryID;
 
             if (ModelState.IsValid)
             {

@@ -128,7 +128,7 @@
 <div class="form-group">
     <div class="col-md-12" style="padding:0;">
         <div id="imageUploadWrapper">
-            <div id="imageUploadInner">
+            <div id="imageUploadInner" style="width:100%;">
                 @{
                     int itemCount2 = 0;
                     foreach (var item in ViewData["images"] as List<Main.Image>)
@@ -144,9 +144,9 @@
 
                     if (itemCount2 == 0)
                     {
-                        <h2>No images were uploaded</h2>
+                        <h4 style="text-align:center;line-height:190px;">No images attached</h4>
                     }
-                }
+}
 
             </div>
         </div>
@@ -211,7 +211,7 @@
         {
             <tr>
                 <td colspan="5" style="text-align:center;">
-                    No comments yet, add one below.
+                    <h4 style="text-align:center;line-height:40px;">No comments yet, add one below.</h4>
                 </td>
             </tr>
         }
