@@ -88,7 +88,7 @@ else {
         <td>
             @Html.ActionLink("View", "Details", null, new { id = item.PostID }, new { @class = "btn btn-success pull-right" })
 
-            @if (String.Equals(item.AspNetUser.UserName, ViewBag.UserID))
+            @if (String.Equals(item.AspNetUser.UserName, ViewBag.UserID) || ViewBag.IsAdmin == 1)
             {
                 @Html.ActionLink("Edit", "Edit", null, new { id = item.PostID }, new { @class = "btn btn-warning pull-right" })
             }

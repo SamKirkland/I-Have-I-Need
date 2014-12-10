@@ -1,0 +1,69 @@
+﻿@model Main.Post
+
+@{
+    ViewBag.Title = "Accept Post";
+}
+
+
+<h3>@ViewBag.message</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PostDate)
+        </dt>
+
+        <dd>
+            <abbr class="timeago" title="@Html.DisplayFor(model => model.PostDate)">@Html.DisplayFor(model => model.PostDate)</abbr>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            <div class="descriptionView">
+                @Html.Raw(Model.Description)
+            </div>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ViewCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ViewCount)
+        </dd>
+
+        <dt>
+            User
+        </dt>
+
+        <dd>
+
+            <a class="avatarLink" href="/Manage/ViewUser?user=@Html.DisplayFor(modelItem => modelItem.UserID)">
+                <img width="64" height="64" alt="User Avatar Picture"
+                        src="@Html.DisplayFor(model => model.AspNetUser.Avatar)" />
+            </a>
+
+            @Html.DisplayFor(model => model.AspNetUser.Email.Split('@')[0])
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+    </dl>
+</div>

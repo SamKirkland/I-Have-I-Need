@@ -17,6 +17,7 @@ namespace Main
         public Post()
         {
             this.Comments = new HashSet<Comment>();
+            this.Images = new HashSet<Image>();
         }
     
         public int PostID { get; set; }
@@ -33,5 +34,6 @@ namespace Main
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Category Category { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
     }
 }

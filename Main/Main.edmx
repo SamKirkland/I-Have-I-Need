@@ -75,6 +75,14 @@
           <Property Name="CommentDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CommentDescription" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Images">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Source" Type="nvarchar(max)" />
+          <Property Name="PostID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Posts">
           <Key>
             <PropertyRef Name="PostID" />
@@ -158,6 +166,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ImageID_PostID">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+          <End Role="Images" Type="Self.Images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Images">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PostID">
           <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
@@ -202,6 +222,7 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CategoryID" Association="Self.FK_CategoryID">
             <End Role="Categories" EntitySet="Categories" />
@@ -222,6 +243,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImageID_PostID" Association="Self.FK_ImageID_PostID">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Images" EntitySet="Images" />
           </AssociationSet>
           <AssociationSet Name="FK_PostID" Association="Self.FK_PostID">
             <End Role="Posts" EntitySet="Posts" />
@@ -345,6 +370,11 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
           </AssociationSet>
+          <EntitySet Name="Images" EntityType="CSCI4830Model.Image" />
+          <AssociationSet Name="FK_ImageID_PostID" Association="CSCI4830Model.FK_ImageID_PostID">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Image" EntitySet="Images" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Comment">
           <Key>
@@ -387,6 +417,7 @@
           <NavigationProperty Name="AspNetUser" Relationship="CSCI4830Model.FK_UserID" FromRole="Post" ToRole="AspNetUser" />
           <NavigationProperty Name="Category" Relationship="CSCI4830Model.FK_CategoryID" FromRole="Post" ToRole="Category" />
           <NavigationProperty Name="Comments" Relationship="CSCI4830Model.FK_PostID" FromRole="Post" ToRole="Comment" />
+          <NavigationProperty Name="Images" Relationship="CSCI4830Model.FK_ImageID_PostID" FromRole="Post" ToRole="Image" />
         </EntityType>
         <Association Name="FK_UserID">
           <End Type="CSCI4830Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -445,6 +476,27 @@
             </Principal>
             <Dependent Role="AspNetUserClaim">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Source" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PostID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="CSCI4830Model.FK_ImageID_PostID" FromRole="Image" ToRole="Post" />
+        </EntityType>
+        <Association Name="FK_ImageID_PostID">
+          <End Type="CSCI4830Model.Post" Role="Post" Multiplicity="1" />
+          <End Type="CSCI4830Model.Image" Role="Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="PostID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -541,6 +593,15 @@
                 <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="CSCI4830Model.Image">
+              <MappingFragment StoreEntitySet="Images">
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

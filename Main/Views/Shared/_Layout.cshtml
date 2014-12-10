@@ -29,7 +29,11 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
-                    <li>@Html.ActionLink("Manage Categories", "Index", "Categories")</li>
+                    @{
+                        if (ViewBag.IsAdmin == 1) {
+                            <li>@Html.ActionLink("Manage Categories", "Index", "Categories")</li>
+                        }
+                    }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

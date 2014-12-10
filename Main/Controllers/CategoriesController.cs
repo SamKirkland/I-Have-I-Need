@@ -19,6 +19,12 @@ namespace Main.Controllers
         {
             ViewBag.UserID = User.Identity.Name;
 
+            var currentUser = db.AspNetUsers.Where(u => u.Email == User.Identity.Name);
+
+            if (currentUser.Count() == 0 || currentUser.First().Role != 1) {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             return View(db.Categories.ToList());
         }
 

@@ -265,7 +265,8 @@ code {
             }
 
             #imageUploadInner .img .delete {
-                background: #EFEFEF;
+                background: #222;
+                color: #fff;
                 width: 40px;
                 height: 40px;
                 cursor: pointer;

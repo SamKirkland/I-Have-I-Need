@@ -8,17 +8,19 @@
         <EntityTypeShape EntityType="CSCI4830Model.AspNetRole" Width="2.125" PointX="0.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSCI4830Model.AspNetUserLogin" Width="2.375" PointX="3.25" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CSCI4830Model.AspNetUser" Width="1.625" PointX="0.625" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSCI4830Model.Category" Width="1.5" PointX="6.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSCI4830Model.Category" Width="1.5" PointX="6.5" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="CSCI4830Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="CSCI4830Model.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CSCI4830Model.Comment" Width="1.5" PointX="8.5" PointY="2" />
+        <EntityTypeShape EntityType="CSCI4830Model.Comment" Width="1.5" PointX="6.75" PointY="2.875" />
         <AssociationConnector Association="CSCI4830Model.FK_UserID_AspNetUsers" />
         <EntityTypeShape EntityType="CSCI4830Model.Post" Width="2.375" PointX="3.375" PointY="0.5" />
         <AssociationConnector Association="CSCI4830Model.FK_UserID" />
         <AssociationConnector Association="CSCI4830Model.FK_CategoryID" />
         <AssociationConnector Association="CSCI4830Model.FK_PostID" />
-        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserClaim" Width="2.375" PointX="6.625" PointY="5.125" />
+        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserClaim" Width="2.375" PointX="6.25" PointY="5.875" />
         <AssociationConnector Association="CSCI4830Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <EntityTypeShape EntityType="CSCI4830Model.Image" Width="1.5" PointX="8.875" PointY="1.625" />
+        <AssociationConnector Association="CSCI4830Model.FK_ImageID_PostID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

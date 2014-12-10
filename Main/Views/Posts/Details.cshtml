@@ -7,7 +7,6 @@
 
 
 
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
 <script src="~/Scripts/locationpicker.jquery.js"></script>
 
@@ -35,6 +34,13 @@
     });
 </script>
 
+@{
+    if (Model.Removed) {
+        <text>
+            <h4>This Post has already been accepted</h4>
+        </text>
+    }
+}
 
 <div>
     <hr />
@@ -74,11 +80,17 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            User
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AspNetUser.Email)
+
+            <a class="avatarLink" href="/Manage/ViewUser?user=@Html.DisplayFor(modelItem => modelItem.UserID)">
+                <img width="64" height="64" alt="User Avatar Picture"
+                     src="@Html.DisplayFor(model => model.AspNetUser.Avatar)" />
+            </a>
+
+            @Html.DisplayFor(model => model.AspNetUser.Email.Split('@')[0])
         </dd>
 
         <dt>
@@ -91,8 +103,11 @@
     </dl>
     <div class="form-group">
         <div class="col-md-12 pull-center">
-            <input type="submit" value="Accept" class="btn btn-success" style="clear:both;display:inline-block;"/>
-            &nbsp;
+            @if (!Model.Removed) {
+                @Html.ActionLink("Accept Posting", "Accept", new { id = Model.PostID },
+                    new { @class = "btn btn-success", @style = "clear:both;display:inline-block;" }
+                )
+            }
         </div>
     </div>
 </div>
@@ -104,10 +119,63 @@
 </div>
 
 
+<style type="text/css">
+    #imageUploadWrapper, #imageUploadInner {
+        height: 210px;
+    }
+</style>
+
+<div class="form-group">
+    <div class="col-md-12" style="padding:0;">
+        <div id="imageUploadWrapper">
+            <div id="imageUploadInner">
+                @{
+                    int itemCount2 = 0;
+                    foreach (var item in ViewData["images"] as List<Main.Image>)
+                    {
+                        itemCount2 = itemCount2 + 1;
+                        <div class="img">
+                            <a href="@item.Source">
+                                <img width="256" height="256" alt="Posting Image"
+                                     src="@item.Source" />
+                            </a>
+                        </div>
+                    }
+
+                    if (itemCount2 == 0)
+                    {
+                        <h2>No images were uploaded</h2>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="clearfix"></div>
+
+<br />
+
+
 <hr />
 <h4>Comments</h4>
 
 <table class="table" style="border-bottom:1px solid #ddd">
+    <tr>
+        <th>
+            User
+        </th>
+        <th></th>
+        <th>
+            Date
+        </th>
+        <th>
+            Comment
+        </th>
+        <th></th>
+    </tr>
     @{
         int itemCount = 0;
         foreach (var item in ViewData["comments"] as List<Main.Comment>)
@@ -117,17 +185,33 @@
                 <td>
                     <a class="avatarLink" href="/Manage/ViewUser?user=@Html.DisplayFor(modelItem => item.UserID)">
                         <img width="64" height="64" alt="User Avatar Picture"
-                             src="@item.AspNetUser.Avatar" />
+                                src="@item.AspNetUser.Avatar" />
                     </a>
                 </td>
                 <td>
                     @item.AspNetUser.Email.Split('@')[0]
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CommentDescription)
+                    <abbr class="timeago" title="@item.CommentDate">@item.CommentDate</abbr>
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.CommentID }, new { @class = "btn btn-danger pull-right" })
+                    @Html.DisplayFor(modelItem => item.CommentDescription)
+                </td>
+
+                <td>
+                    @if (String.Equals(item.AspNetUser.UserName, ViewBag.UserID))
+                    {
+                        @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.CommentID }, new { @class = "btn btn-danger pull-right" })
+                    }
+                </td>
+            </tr>
+        }
+
+        if (itemCount == 0)
+        {
+            <tr>
+                <td colspan="5" style="text-align:center;">
+                    No comments yet, add one below.
                 </td>
             </tr>
         }
@@ -142,7 +226,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.PostID)
-        
+
         <div class="form-group">
             <label for="CommentDescription" class="control-label col-md-12">Add New Comment:</label>
             <div class="col-md-12">
@@ -165,7 +249,8 @@
 <div class="form-actions no-color">
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
 
-    @if (Model.AspNetUser.Email == User.Identity.Name) {
+    @if (Model.AspNetUser.Email == User.Identity.Name)
+    {
         @Html.ActionLink("Edit", "Edit", new { id = Model.PostID }, new { @class = "btn btn-warning pull-right" })
     }
 </div>

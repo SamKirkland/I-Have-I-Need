@@ -33,6 +33,14 @@
     }
 
 
+    function bytesToSize(bytes) {
+        if (bytes == 0) return '0 Byte';
+        var k = 1000;
+        var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        var i = Math.floor(Math.log(bytes) / Math.log(k));
+        return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+    }
+
 
     function handleFileSelect(evt) {
         //evt.stopPropagation();
@@ -61,8 +69,10 @@
                                 '"><div class="name">'
                                     + theFile.name +
                                 '</div><div class="size">'
-                                    + theFile.size +
-                                '</div><div class="delete">X</div></div>';
+                                    + bytesToSize(theFile.size) +
+                                '</div><input type="hidden" name="images" value="'
+                                    + e.target.result +
+                                '" /><div class="delete">X</div></div>';
                     $("#imageUploadInner").append(output);
                 };
             })(f);
@@ -131,7 +141,6 @@
                 'link-tooltip': true,
                 'image-tooltip': true
             },
-            //formats: ['bold', 'italic', 'color'],
             theme: 'snow'
         });
 
@@ -142,28 +151,34 @@
     }
 
 
+    /*
     function readImage(input) {
         if (input.files && input.files[0]) {
             var FR = new FileReader();
             FR.onload = function (e) {
-                //$('#img').attr("src", e.target.result);
-                //$('#base').text(e.target.result);
-
-                $("#imageUploadInner").append('<div class="img"><img src="' + e.target.result + '"><div class="delete">X</div></div>');
-                $('.delete').on('click', function () {
-                    $(this).parents('.img').remove();
-                });
+                //$("#imageUploadInner").append('<div class="img"><img src="' + e.target.result + '"><input type="hidden" name="images[]"/><div class="delete">X</div></div>');
             };
             FR.readAsDataURL(input.files[0]);
         }
     }
+    */
 
     $("#files").change(function () {
         readImage(this);
     });
 
 
+    $("#imageUploadInner").on("click", ".delete", function () {
+        $(this).parent().animate({
+            width: "0"
+        }, 250, function () {
+            $(this).remove();
+        });
+    });
 
+    function deleteImage(elem) {
+        $(elem).delay(250).parent().remove();
+    }
 
 
 

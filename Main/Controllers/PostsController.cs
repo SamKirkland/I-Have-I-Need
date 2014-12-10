@@ -20,11 +20,13 @@ namespace Main.Controllers
         {
             ViewBag.UserID = User.Identity.Name;
 
-            var posts = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category).OrderByDescending(p => p.PostDate);
+            var posts = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category).Where(p => !p.Removed).OrderByDescending(p => p.PostDate);
 
             if (!String.IsNullOrEmpty(search)) {
                 ViewBag.search = search;
-                posts = posts.Where(p => p.Description.Contains(search) || p.Title.Contains(search)).OrderByDescending(p => p.PostDate);
+                posts = posts
+                    .Where(p => p.Description.Contains(search) || p.Title.Contains(search))
+                    .OrderByDescending(p => p.PostDate);
             }
 
             return View(posts.ToList());
@@ -43,10 +45,12 @@ namespace Main.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.UserID = User.Identity.Name;
             post.ViewCount = Convert.ToInt32(post.ViewCount) + 1;
             db.Entry(post).State = EntityState.Modified;
             db.SaveChanges();
 
+            ViewData["images"] = db.Images.Where(p => p.PostID == post.PostID).ToList();
             ViewData["comments"] = db.Comments.Include(p => p.AspNetUser).Where(p => p.PostID == post.PostID).ToList();
 
             return View(post);
@@ -74,6 +78,30 @@ namespace Main.Controllers
             {
                 db.Posts.Add(post);
                 db.SaveChanges();
+
+                var matchingPostID = post.PostID;
+
+                // array of images uploaded. Stored as a base64 string
+                var imageArray = Request.Form.GetValues("images");
+
+
+                for (int i = 0; i < imageArray.Count(); i++)
+                {
+                    Image imageEntity = new Image();
+                    imageEntity.PostID = matchingPostID;
+                    imageEntity.Source = imageArray.GetValue(i).ToString();
+
+                    try
+                    {
+                        db.Images.Add(imageEntity);
+                        db.SaveChanges();
+                    }
+                    catch (Exception ec)
+                    {
+                        Console.WriteLine(ec.Message);
+                    }
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -89,6 +117,7 @@ namespace Main.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Post post = db.Posts.Find(id);
             if (post == null)
             {
@@ -96,7 +125,9 @@ namespace Main.Controllers
             }
 
             // if the user is not an admin or the original poster, deny them access
-            if (post.AspNetUser.Email != User.Identity.Name) {
+            var currentUser = db.AspNetUsers.Where(u => u.Email == User.Identity.Name).First();
+            if (currentUser.Role != 1 && post.AspNetUser.Email != User.Identity.Name)
+            {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
 
@@ -112,8 +143,10 @@ namespace Main.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PostID,UserID,PostDate,Title,Description,CategoryID,Removed,Longitude,Latitude")] Post post)
         {
+            // array of images uploaded. Stored as a base64 string
+            var test = Request.Form.GetValues("images");
+
             post.PostDate = DateTime.Now;
-            post.UserID = User.Identity.GetUserId();
 
             if (ModelState.IsValid)
             {
@@ -123,6 +156,36 @@ namespace Main.Controllers
             }
             ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", post.UserID);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", post.CategoryID);
+            return View(post);
+        }
+        // GET: Posts/Accept/5
+        public ActionResult Accept(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Post post = db.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+
+            if (post.Removed == true)
+            {
+                ViewBag.message = "This posting has already been accepted.";
+            }
+            else {
+                post.Removed = true;
+                String posterEmail = db.AspNetUsers.Find(post.UserID).Email;
+                ViewBag.message = "You accepted the posting! Please contact the poster to arrange a time: " + posterEmail;
+            }
+
+            db.Entry(post).State = EntityState.Modified;
+            db.SaveChanges();
+
             return View(post);
         }
 
