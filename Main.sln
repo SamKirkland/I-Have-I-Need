@@ -5,20 +5,15 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{0BF608F5-B651-4DCC-887F-7D224137561B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainTest", "MainTest\MainTest.csproj", "{73B2500E-366A-47F5-9ACC-AEA5BBB84960}"
-EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 2
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://csci4830.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Main\\Main.csproj
 		SccProjectName1 = Main
 		SccLocalPath1 = Main
-		SccProjectUniqueName2 = MainTest\\MainTest.csproj
-		SccProjectName2 = MainTest
-		SccLocalPath2 = MainTest
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +24,6 @@ Global
 		{0BF608F5-B651-4DCC-887F-7D224137561B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BF608F5-B651-4DCC-887F-7D224137561B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BF608F5-B651-4DCC-887F-7D224137561B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73B2500E-366A-47F5-9ACC-AEA5BBB84960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73B2500E-366A-47F5-9ACC-AEA5BBB84960}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73B2500E-366A-47F5-9ACC-AEA5BBB84960}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73B2500E-366A-47F5-9ACC-AEA5BBB84960}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
