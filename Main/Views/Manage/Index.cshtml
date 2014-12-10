@@ -3,23 +3,25 @@
     ViewBag.Title = "Manage Your Account";
 }
 
-<br />
-<br />
+<style type="text/css">
+    .userImage {
+        margin: auto;
+        display: block;
+        border: 12px solid #f17c5d;
+        border-radius: 12px;
+    }
+</style>
 
+<img class="userImage" width="256" height="256" alt="User Avatar Picture" src="@ViewBag.Avatar" />
 
+<hr />
+<h3>User Information</h3>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-
-    <img width="256" height="256" alt="User Avatar Picture"
-         src="@ViewBag.Avatar" />
-    </a>
-
-    <hr />
     <dl class="dl-horizontal">
         <dt>Password:</dt>
         <dd>
-
             @if (Model.HasPassword)
             {
                 @Html.ActionLink("Change your password", "ChangePassword", null, new { @class = "btn btn-primary" })

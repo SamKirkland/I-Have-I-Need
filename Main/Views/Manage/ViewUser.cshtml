@@ -13,7 +13,7 @@
     }
 </style>
 
-<img class="userImage" width="256" height="256" alt="User Avatar Picture" src="@ViewBag.Avatar" />
+<img class="userImage" width="256" height="256" alt="User Avatar Picture" src="@ViewBag.UserAvatar" />
 
 <hr />
 <h3>User Information</h3>
@@ -40,7 +40,18 @@
         </dt>
 
         <dd>
-            (1 = yes, 0 = no) @Html.DisplayFor(model => model.Role)
+            @{
+                if (Model.Role == 1) {
+                    <text>
+                        This user is a admin    
+                    </text>
+                }
+                else {
+                    <text>
+                        Not a admin
+                    </text>
+                }
+            }
         </dd>
 
     </dl>

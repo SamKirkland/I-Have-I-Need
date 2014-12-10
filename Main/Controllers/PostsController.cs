@@ -84,21 +84,23 @@ namespace Main.Controllers
                 // array of images uploaded. Stored as a base64 string
                 var imageArray = Request.Form.GetValues("images");
 
-
-                for (int i = 0; i < imageArray.Count(); i++)
+                if (imageArray != null)
                 {
-                    Image imageEntity = new Image();
-                    imageEntity.PostID = matchingPostID;
-                    imageEntity.Source = imageArray.GetValue(i).ToString();
+                    for (int i = 0; i < imageArray.Count(); i++)
+                    {
+                        Image imageEntity = new Image();
+                        imageEntity.PostID = matchingPostID;
+                        imageEntity.Source = imageArray.GetValue(i).ToString();
 
-                    try
-                    {
-                        db.Images.Add(imageEntity);
-                        db.SaveChanges();
-                    }
-                    catch (Exception ec)
-                    {
-                        Console.WriteLine(ec.Message);
+                        try
+                        {
+                            db.Images.Add(imageEntity);
+                            db.SaveChanges();
+                        }
+                        catch (Exception ec)
+                        {
+                            Console.WriteLine(ec.Message);
+                        }
                     }
                 }
 

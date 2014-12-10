@@ -63,7 +63,7 @@ namespace Main.Controllers
             AspNetUser u = db.AspNetUsers.Where(m => m.Id == user).FirstOrDefault();
 
             ViewBag.UserID = User.Identity.Name;
-            ViewBag.Avatar = db.AspNetUsers.Where(p => p.Id == user).FirstOrDefault().Avatar;
+            ViewBag.UserAvatar = db.AspNetUsers.Where(p => p.Id == user).FirstOrDefault().Avatar;
 
             ViewData["posts"] = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category).Where(p => p.AspNetUser.Id == user).ToList();
             ViewData["comments"] = db.Comments.Include(p => p.AspNetUser).Where(p => p.AspNetUser.Id == user).ToList();

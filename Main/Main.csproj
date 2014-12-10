@@ -224,6 +224,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\quill.snow.css" />
     <Content Include="img\avatar.png" />
+    <Content Include="img\images.png" />
     <Content Include="img\logo.png" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\jquery.bxslider.js" />

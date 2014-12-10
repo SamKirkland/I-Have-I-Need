@@ -74,6 +74,8 @@
                                     + e.target.result +
                                 '" /><div class="delete">X</div></div>';
                     $("#imageUploadInner").append(output);
+
+                    $("#imageUploadInner").css("background", "#fff");
                 };
             })(f);
 
