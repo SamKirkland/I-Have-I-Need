@@ -1,48 +1,30 @@
 ﻿@model Main.AspNetUser
 
 @{
-    ViewBag.Title = "ViewUser";
+    ViewBag.Title = "View User Profile";
 }
 
-<h2>ViewUser</h2>
+<style type="text/css">
+    .userImage {
+        margin: auto;
+        display: block;
+        border: 12px solid #f17c5d;
+        border-radius: 12px;
+    }
+</style>
 
+<img class="userImage" width="256" height="256" alt="User Avatar Picture" src="@ViewBag.Avatar" />
 
-<img width="256" height="256" alt="User Avatar Picture"
-     src="@ViewBag.Avatar" />
-    </a>
-
+<hr />
+<h3>User Information</h3>
 <div>
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailConfirmed)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumberConfirmed)
         </dd>
 
         <dt>
@@ -54,25 +36,29 @@
         </dd>
 
         <dt>
-            User an Admin? (1 = yes, 0 = no)
+            User an Admin?
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Role)
+            (1 = yes, 0 = no) @Html.DisplayFor(model => model.Role)
         </dd>
 
     </dl>
 </div>
 
-
-<br /><br /><br />
-
-
+<hr />
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-
+            <h3 style="text-align:center">Users Posts</h3>
+        </div>
+        <div class="col-md-6">
+            <h3 style="text-align:center">Users Comments</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
             <table class="table">
                 <tr>
                     <th>
@@ -117,8 +103,8 @@
                     }
                 }
             </table>
-
         </div>
+
         <div class="col-md-6">
             <table class="table">
                 <tr>
