@@ -94,7 +94,10 @@ namespace Main.Controllers
             };
 
 
-            ViewBag.Avatar = db.AspNetUsers.Where(p => p.UserName == User.Identity.Name).FirstOrDefault().Avatar;
+            var UserID = User.Identity.GetUserId();
+            AspNetUser user = db.AspNetUsers.Where(m => m.Id == UserID).FirstOrDefault();
+
+            ViewBag.UserAvatar = user.Avatar;
 
             ViewData["posts"] = db.Posts.Include(p => p.AspNetUser).Include(p => p.Category).Where(p => p.AspNetUser.UserName == User.Identity.Name).ToList();
             ViewData["comments"] = db.Comments.Include(p => p.AspNetUser).Where(p => p.AspNetUser.UserName == User.Identity.Name).ToList();

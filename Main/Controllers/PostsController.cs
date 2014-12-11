@@ -133,6 +133,7 @@ namespace Main.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
 
+            ViewData["images"] = db.Images.Where(p => p.PostID == post.PostID).ToList();
             ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", post.UserID);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", post.CategoryID);
             return View(post);
@@ -143,20 +144,57 @@ namespace Main.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,UserID,PostDate,Title,Description,CategoryID,Removed,Longitude,Latitude")] Post post)
+        public ActionResult Edit([Bind(Include = "PostID,UserID,PostDate,Title,ViewCount,Description,CategoryID,Removed,Longitude,Latitude")] Post post)
         {
-            // array of images uploaded. Stored as a base64 string
-            var test = Request.Form.GetValues("images");
-
             post.PostDate = DateTime.Now;
-            var something = post.CategoryID;
 
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
+
+                var matchingPostID = post.PostID;
+
+                // delete all current pictures
+                var associatedImages = db.Images.Where(p => p.PostID == matchingPostID).ToList();
+
+                try
+                {
+                    db.Images.RemoveRange(associatedImages);
+                    db.SaveChanges();
+                }
+                catch (Exception e) {
+                    Console.WriteLine(e.Message);
+                }
+
+                // re-add pictures
+                // array of images uploaded. Stored as a base64 string
+                var imageArray = Request.Form.GetValues("images");
+
+                if (imageArray != null)
+                {
+                    for (int i = 0; i < imageArray.Count(); i++)
+                    {
+                        Image imageEntity = new Image();
+                        imageEntity.PostID = matchingPostID;
+                        imageEntity.Source = imageArray.GetValue(i).ToString();
+
+                        try
+                        {
+                            db.Images.Add(imageEntity);
+                            db.SaveChanges();
+                        }
+                        catch (Exception ec)
+                        {
+                            Console.WriteLine(ec.Message);
+                        }
+                    }
+                }
+
                 return RedirectToAction("Index");
             }
+
+
             ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", post.UserID);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", post.CategoryID);
             return View(post);

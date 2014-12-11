@@ -49,6 +49,7 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.PostID)
+        @Html.HiddenFor(model => model.ViewCount)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -137,7 +138,23 @@
             <label class="control-label col-md-2">Images</label>
             <div class="col-md-10">
                 <div id="imageUploadWrapper">
-                    <div id="imageUploadInner"></div>
+                    <div id="imageUploadInner">
+                        @{
+                            int itemCount2 = 0;
+                            foreach (var item in ViewData["images"] as List<Main.Image>)
+                            {
+                                itemCount2 = itemCount2 + 1;
+                                            <div class="img">
+                                                <input type="hidden" name="images" value="@item.Source" />
+                                                <a href="@item.Source">
+                                                    <img width="256" height="256" alt="Posting Image"
+                                                         src="@item.Source" />
+                                                </a>
+                                                <div class="delete">X</div>
+                                            </div>
+                            }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
