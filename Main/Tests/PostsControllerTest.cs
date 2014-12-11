@@ -29,11 +29,11 @@ namespace MainTest
 
             Post post = new Post();
             post.PostDate = DateTime.Now;
-            post.Title = "required";
+            post.Title = "New post";
             post.ViewCount = 0;
             post.Longitude = 0;
             post.Latitude = 0;
-            post.Description = "description";
+            post.Description = "Description.";
             post.CategoryID = 1;
             post.UserID = "05f21849-16df-43d0-981a-4ccda1abc0fb";
             postControl.Create(post);
