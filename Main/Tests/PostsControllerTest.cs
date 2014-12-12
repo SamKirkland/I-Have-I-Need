@@ -2,6 +2,7 @@
 using Main.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections;
 using System.Web.Mvc;
 
 namespace MainTest
@@ -35,6 +36,7 @@ namespace MainTest
             post.Latitude = 0;
             post.Description = "Description.";
             post.CategoryID = 1;
+            post.Removed = false;
             post.UserID = "05f21849-16df-43d0-981a-4ccda1abc0fb";
             postControl.Create(post);
         }

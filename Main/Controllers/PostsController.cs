@@ -72,7 +72,7 @@ namespace Main.Controllers
         public ActionResult Create([Bind(Include = "UserID,PostDate,Title,Description,ViewCount,CategoryID,Removed,Longitude,Latitude")] Post post)
         {
             post.PostDate = DateTime.Now;
-            post.UserID = User.Identity.GetUserId();
+            //post.UserID = User.Identity.GetUserId();
 
             if (ModelState.IsValid)
             {
@@ -82,24 +82,26 @@ namespace Main.Controllers
                 var matchingPostID = post.PostID;
 
                 // array of images uploaded. Stored as a base64 string
-                var imageArray = Request.Form.GetValues("images");
-
-                if (imageArray != null)
+                if (Request != null && Request.Form.GetValues("images") != null)
                 {
-                    for (int i = 0; i < imageArray.Count(); i++)
+                    var imageArray = Request.Form.GetValues("images");
+                    if (imageArray != null)
                     {
-                        Image imageEntity = new Image();
-                        imageEntity.PostID = matchingPostID;
-                        imageEntity.Source = imageArray.GetValue(i).ToString();
+                        for (int i = 0; i < imageArray.Count(); i++)
+                        {
+                            Image imageEntity = new Image();
+                            imageEntity.PostID = matchingPostID;
+                            imageEntity.Source = imageArray.GetValue(i).ToString();
 
-                        try
-                        {
-                            db.Images.Add(imageEntity);
-                            db.SaveChanges();
-                        }
-                        catch (Exception ec)
-                        {
-                            Console.WriteLine(ec.Message);
+                            try
+                            {
+                                db.Images.Add(imageEntity);
+                                db.SaveChanges();
+                            }
+                            catch (Exception ec)
+                            {
+                                Console.WriteLine(ec.Message);
+                            }
                         }
                     }
                 }
