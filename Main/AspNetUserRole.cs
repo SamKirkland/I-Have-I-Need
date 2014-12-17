@@ -12,15 +12,11 @@ namespace Main
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class AspNetUserRole
     {
-        public int CommentID { get; set; }
-        public int PostID { get; set; }
-        public string UserID { get; set; }
-        public System.DateTime CommentDate { get; set; }
-        public string CommentDescription { get; set; }
+        public string UserId { get; set; }
+        public string RoleId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
-        public virtual Post Post { get; set; }
     }
 }

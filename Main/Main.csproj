@@ -182,6 +182,9 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>Main.tt</DependentUpon>
     </Compile>
+    <Compile Include="AspNetUserRole.cs">
+      <DependentUpon>Main.tt</DependentUpon>
+    </Compile>
     <Compile Include="Category.cs">
       <DependentUpon>Main.tt</DependentUpon>
     </Compile>
@@ -194,6 +197,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>Main.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

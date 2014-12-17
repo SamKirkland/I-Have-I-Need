@@ -12,16 +12,11 @@ namespace Main
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class C__MigrationHistory
     {
-        public Category()
-        {
-            this.Posts = new HashSet<Post>();
-        }
-    
-        public int CategoryID { get; set; }
-        public string CategoryName { get; set; }
-    
-        public virtual ICollection<Post> Posts { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

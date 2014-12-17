@@ -5,21 +5,23 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="46f896e3a4a44dbfb5badc95738de8c9" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="CSCI4830Model.AspNetRole" Width="2.125" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserLogin" Width="2.375" PointX="3.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSCI4830Model.AspNetUser" Width="1.625" PointX="0.625" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSCI4830Model.Category" Width="1.5" PointX="6.5" PointY="0.5" IsExpanded="true" />
-        <AssociationConnector Association="CSCI4830Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="CSCI4830Model.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CSCI4830Model.Comment" Width="1.5" PointX="6.75" PointY="2.875" />
-        <AssociationConnector Association="CSCI4830Model.FK_UserID_AspNetUsers" />
-        <EntityTypeShape EntityType="CSCI4830Model.Post" Width="2.375" PointX="3.375" PointY="0.5" />
-        <AssociationConnector Association="CSCI4830Model.FK_UserID" />
-        <AssociationConnector Association="CSCI4830Model.FK_CategoryID" />
-        <AssociationConnector Association="CSCI4830Model.FK_PostID" />
-        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserClaim" Width="2.375" PointX="6.25" PointY="5.875" />
+        <EntityTypeShape EntityType="CSCI4830Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CSCI4830Model.AspNetRole" Width="2.75" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserClaim" Width="1.5" PointX="3" PointY="4.25" />
+        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserLogin" Width="1.5" PointX="3" PointY="11.5" />
+        <EntityTypeShape EntityType="CSCI4830Model.AspNetUserRole" Width="1.5" PointX="3" PointY="14" />
+        <EntityTypeShape EntityType="CSCI4830Model.AspNetUser" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="CSCI4830Model.Category" Width="1.5" PointX="3.75" PointY="7.875" />
+        <EntityTypeShape EntityType="CSCI4830Model.Comment" Width="1.5" PointX="8.25" PointY="6.5" />
+        <EntityTypeShape EntityType="CSCI4830Model.Image" Width="1.5" PointX="8.25" PointY="9.875" />
+        <EntityTypeShape EntityType="CSCI4830Model.Post" Width="1.5" PointX="6" PointY="5.875" />
         <AssociationConnector Association="CSCI4830Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
-        <EntityTypeShape EntityType="CSCI4830Model.Image" Width="1.5" PointX="8.875" PointY="1.625" />
+        <AssociationConnector Association="CSCI4830Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="CSCI4830Model.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="CSCI4830Model.FK_UserID" />
+        <AssociationConnector Association="CSCI4830Model.FK_UserID_AspNetUsers" />
+        <AssociationConnector Association="CSCI4830Model.FK_Posts_Categories" />
+        <AssociationConnector Association="CSCI4830Model.FK_PostID" />
         <AssociationConnector Association="CSCI4830Model.FK_ImageID_PostID" />
       </Diagram>
     </edmx:Diagrams>
