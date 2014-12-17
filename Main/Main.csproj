@@ -244,6 +244,7 @@
     <Content Include="img\avatar.png" />
     <Content Include="img\images.png" />
     <Content Include="img\logo.png" />
+    <Content Include="Main.edmx.sql" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\jquery.bxslider.js" />
     <Content Include="Views\favicon.ico" />
