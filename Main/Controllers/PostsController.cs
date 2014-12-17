@@ -59,7 +59,7 @@ namespace Main.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email");
+            ViewBag.UserID = User.Identity.GetUserId();
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             return View();
         }
