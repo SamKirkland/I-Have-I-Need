@@ -1,0 +1,2 @@
+C:\Users\Sam\Documents\GitHub\I-Have-I-Need\Main\obj\Debug\Main.csprojAssemblyReference.cache
+C:\Users\Sam\Documents\GitHub\I-Have-I-Need\Main\obj\Debug\Main.csproj.CoreCompileInputs.cache
